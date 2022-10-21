@@ -6,7 +6,7 @@ import {
   type QuestionnaireProperties
 } from "questionnaire-core/dist"
 
-export * from "../node_modules/questionnaire-core/dist";
+export * from "questionnaire-core/dist";
 
 // Utility navigation functions
 const panic_navigation = (ans: Answer | undefined, state: Questionnaire) => {
@@ -126,7 +126,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) {
           state.counters.increment("depression_criterion_3", 1);
           state.counters.set("weight_detail", 1);
@@ -152,7 +152,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No, I was not trying to lose weight" },
         { value: 2, text: "Yes, I have been trying to lose weight" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 1) {
           state.counters.set("weight_detail", 2);
         }
@@ -168,7 +168,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "I lost half a stone or more" },
         { value: 2, text: "I lost less than half a stone" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 1) {
           state.counters.increment("depression_criterion_3", 1);
           state.counters.set("weight_detail", 3);
@@ -184,7 +184,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 1) return "health-gp-visits";
         if (ans?.value === 2) {
           const sex_ans = state.getItemById("demo-sex").answer?.value;
@@ -203,7 +203,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) {
           state.counters.set("weight_detail", 2);
         }
@@ -219,7 +219,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Yes" },
         { value: 3, text: "Yes, but I am pregnant" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) {
           state.counters.set("weight_detail", 2);
         }
@@ -235,7 +235,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "I gained half a stone or more" },
         { value: 2, text: "I gained less than half a stone" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 1 && state.counters.get("weight_detail", 0) === 2) {
           state.counters.set("weight_detail", 4);
         }
@@ -253,7 +253,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 3, text: "6 to 10 times" },
         { value: 4, text: "More than 10 times" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (
           state.counters.get("weight_detail", 0) === 3 &&
           state.getItemById("health-appetite-loss").answer?.value === 2
@@ -326,7 +326,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("somatic", 1);
       },
       next_item_fun: (ans) =>
@@ -343,7 +343,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, it has lasted for more than 3 hours on at least one day",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("somatic", 1);
       },
       next_item: "somatic-pain-valence",
@@ -357,7 +357,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 3, text: "Unpleasant" },
         { value: 4, text: "Very unpleasant" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (typeof ans?.value === "number" && ans?.value >= 3)
           state.counters.increment("somatic", 1);
       },
@@ -378,7 +378,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "I haven't done anything interesting in the past week",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("somatic", 1);
       },
       next_item: "somatic-duration",
@@ -415,7 +415,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("somatic", 1);
       },
       next_item_fun: (ans) =>
@@ -432,7 +432,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, it has lasted for more than 3 hours on at least one day",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("somatic", 1);
       },
       next_item: "somatic-discomfort-valence",
@@ -446,7 +446,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 3, text: "Unpleasant" },
         { value: 4, text: "Very unpleasant" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (typeof ans?.value === "number" && ans?.value >= 3)
           state.counters.increment("somatic", 1);
       },
@@ -467,7 +467,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "I haven't done anything interesting in the past week",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("somatic", 1);
       },
       next_item: "somatic-duration",
@@ -494,7 +494,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         state.counters.set("score", state.counters.get("somatic", 0));
       },
       next_item_fun: (ans) =>
@@ -528,7 +528,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("fatigue", 1);
       },
       next_item_fun: (ans) =>
@@ -545,7 +545,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, I felt tired for more than 3 hours on at least one day",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("fatigue", 1);
       },
       next_item: "fatigue-tired-push",
@@ -558,7 +558,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes, on one or more occasion" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("fatigue", 1);
       },
       next_item: "fatigue-tired-enjoy",
@@ -575,7 +575,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "I haven't done anything enjoyable in the past week",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("fatigue", 1);
       },
       next_item: "fatigue-duration",
@@ -619,7 +619,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("fatigue", 1);
       },
       next_item_fun: (ans) =>
@@ -636,7 +636,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, I felt tired for more than 3 hours on at least one day",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("fatigue", 1);
       },
       next_item: "fatigue-energy-push",
@@ -649,7 +649,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes, on one or more occasion" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("fatigue", 1);
       },
       next_item: "fatigue-energy-enjoy",
@@ -666,7 +666,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "I haven't done anything enjoyable in the past week",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("fatigue", 1);
       },
       next_item: "fatigue-duration",
@@ -683,7 +683,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 5, text: "Between 2 and 5 years" },
         { value: 6, text: "More than 5 years" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (
           state.counters.get("somatic", 0) >= 2 &&
           state.counters.get("fatigue", 0) >= 2
@@ -701,7 +701,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes, problems concentrating on what I am doing" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const fatigue = state.counters.get("fatigue", 0);
         if (!fatigue) return;
         state.counters.increment("score", fatigue);
@@ -717,7 +717,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (
           ans?.value === 1 &&
           state.getItemById("concentration").answer?.value === 1
@@ -735,10 +735,10 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("concentration", 1);
       },
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 1) return "sleep-loss";
         if (
           ans?.value === 1 &&
@@ -759,7 +759,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "No, I couldn't concentrate on at least one of these things",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("concentration", 1);
       },
       next_item: "concentration-distress",
@@ -772,7 +772,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("concentration", 1);
       },
       next_item: "concentration-duration",
@@ -789,14 +789,14 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 5, text: "Between 2 and 5 years" },
         { value: 6, text: "More than 5 years" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (
           state.counters.get("somatic", 0) >= 2 &&
           state.counters.get("fatigue", 0) >= 2
         )
           state.counters.increment("NEURAS", 1);
       },
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (state.getItemById("concentration-forgetting").answer?.value === 1)
           return "sleep-loss";
         return "concentration-forgetting-important";
@@ -809,7 +809,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes, I have forgotten something important" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("concentration", 1);
       },
       next_item: "concentration-forgetting-duration",
@@ -836,7 +836,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const conc = state.counters.get("concentration", 0);
         if (!conc) return;
         state.counters.increment("score", conc);
@@ -854,7 +854,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three nights" },
         { value: 3, text: "Four nights or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("sleep", 1);
       },
       next_item_fun: (ans) =>
@@ -870,7 +870,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 3, text: "Between 1 and 3 hours" },
         { value: 4, text: "Three hours or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v === 2) state.counters.increment("sleep", 1);
@@ -888,7 +888,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three nights" },
         { value: 3, text: "Four nights or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("sleep", 1);
       },
       next_item: "sleep-loss-morning",
@@ -901,7 +901,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes, and I couldn't get back to sleep" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         const sleep = state.counters.get("sleep", 0);
         if (!v || !sleep) return;
@@ -950,7 +950,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three nights" },
         { value: 3, text: "Four nights or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("sleep", 1);
       },
       next_item_fun: (ans) =>
@@ -966,7 +966,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 3, text: "Between 1 and 3 hours" },
         { value: 4, text: "Three hours or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v === 2) state.counters.increment("sleep", 1);
@@ -986,7 +986,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three nights" },
         { value: 3, text: "Four nights or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("sleep", 1);
       },
       next_item: "sleep-duration",
@@ -1016,7 +1016,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, I have felt irritable or short tempered recently",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const sleep = state.counters.get("sleep", 0);
         if (!sleep) return;
         state.counters.increment("score", sleep);
@@ -1046,7 +1046,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("irritability", 1);
       },
       next_item_fun: (ans) =>
@@ -1063,7 +1063,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, I felt this way for more than one hour on at least one day",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("irritability", 1);
       },
       next_item: "irritability-shout",
@@ -1077,7 +1077,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Yes, but I didn't actually shout at someone" },
         { value: 3, text: "Yes, and I actually shouted" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v >= 2) state.counters.increment("irritability", 1);
@@ -1093,7 +1093,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Yes, but this was justified" },
         { value: 3, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("irritability", 1);
       },
       next_item: "irritability-duration",
@@ -1110,7 +1110,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 5, text: "Between 2 and 5 years" },
         { value: 6, text: "More than 5 years" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const irritation = state.counters.get("irritability", 0);
         const fatigue = state.counters.get("fatigue", 0);
         const sleep = state.counters.get("sleep", 0);
@@ -1131,7 +1131,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const irritability = state.counters.get("irritability", 0);
         if (!irritability) return;
         state.counters.increment("score", irritability);
@@ -1159,7 +1159,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("hypochondria", 1);
       },
       next_item_fun: (ans) =>
@@ -1176,7 +1176,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, I worry too much",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("hypochondria", 1);
       },
       next_item: "hypochondria-valence",
@@ -1190,7 +1190,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 3, text: "Unpleasant" },
         { value: 4, text: "Very unpleasant" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (ans?.value >= 3) state.counters.increment("hypochondria", 1);
@@ -1208,7 +1208,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "No, I could not take my mind off these worries even once",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("hypochondria", 1);
       },
       next_item: "hypochondria-duration",
@@ -1238,7 +1238,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const hypochondria = state.counters.get("hypochondria", 0);
         if (!hypochondria) return;
         state.counters.increment("score", hypochondria);
@@ -1265,7 +1265,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "No, less enjoyment than usual" },
         { value: 3, text: "No, I don't enjoy anything" },
       ],
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (
           ans?.value === 1 &&
           state.getItemById("depression-recent").answer?.value !== 2
@@ -1283,7 +1283,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "No, less enjoyment than usual" },
         { value: 3, text: "No, I don't enjoy anything" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (ans?.value >= 2) {
@@ -1292,7 +1292,7 @@ export const _state_properties: QuestionnaireProperties = {
           state.counters.increment("depression_criterion_3", 1);
         }
       },
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (
           ans?.value === 1 &&
           state.getItemById("depression-recent").answer?.value === 1
@@ -1310,7 +1310,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("depression", 1);
       },
       next_item: "depression-sad-long",
@@ -1323,7 +1323,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No, less than 3 hours" },
         { value: 2, text: "Yes, for 3 hours or more on at least one day" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v === 2) state.counters.increment("depression", 1);
@@ -1362,7 +1362,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Sometimes I cheered up" },
         { value: 3, text: "No, nothing cheered me up" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v >= 2) {
@@ -1384,7 +1384,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 5, text: "Between 2 and 5 years" },
         { value: 6, text: "More than 5 years" },
       ],
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (state.counters.get("depression", 0) > 0) return "worry";
         return "depression-detail-time";
       },
@@ -1402,7 +1402,7 @@ export const _state_properties: QuestionnaireProperties = {
         },
         { value: 4, text: "No difference between morning and evening" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v <= 2) state.counters.set("DVM", v);
@@ -1420,7 +1420,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 3, text: "Increased" },
         { value: 4, text: "Decreased" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 4) {
           state.counters.set("libido", 1);
           state.counters.increment("depression_criterion_3", 1);
@@ -1436,7 +1436,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.set("PSYCHMOT", 2);
       },
       next_item: "depression-detail-slow",
@@ -1449,7 +1449,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.set("PSYCHMOT", 1);
         if ([1, 2].includes(state.counters.get("PSYCHMOT", 0))) {
           state.counters.increment("depression_criterion_2", 1);
@@ -1468,7 +1468,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 3, text: "Sometimes" },
         { value: 4, text: "Often" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v >= 3) {
@@ -1486,7 +1486,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No, I've been feeling as good as anyone else" },
         { value: 2, text: "Yes, I've NOT been feeling as good as others" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) {
           state.counters.increment("depressive_ideas", 1);
           state.counters.increment("depression_criterion_2", 1);
@@ -1502,13 +1502,13 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes, I have felt hopeless sometimes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) {
           state.counters.increment("depressive_ideas", 1);
           state.counters.increment("suicide", 1);
         }
       },
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (!state.counters.get("depressive_ideas", 0))
           return "depression-outro";
         return "depression-suicide";
@@ -1523,7 +1523,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Sometimes" },
         { value: 3, text: "Always" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v >= 2) {
@@ -1547,7 +1547,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, I have had thoughts about it in the past week",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v >= 2) {
@@ -1572,7 +1572,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.set("suicide", 4);
       },
       next_item: "depression-suicide-doctor",
@@ -1612,7 +1612,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Sometimes" },
         { value: 3, text: "Often" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         state.counters.increment("score", state.counters.get("depression", 0));
         state.counters.increment(
           "score",
@@ -1668,7 +1668,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("worry", 1);
       },
       next_item_fun: (ans) => {
@@ -1684,7 +1684,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes, worrying too much" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("worry", 1);
       },
       next_item: "worry-valence",
@@ -1699,7 +1699,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 3, text: "Unpleasant" },
         { value: 4, text: "Very unpleasant" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v >= 3) state.counters.increment("worry", 1);
@@ -1717,7 +1717,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, 3 hours or more on at least one day this week",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("worry", 1);
       },
       next_item: "worry-duration",
@@ -1743,7 +1743,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         state.counters.increment("score", state.counters.get("worry", 0));
       },
       next_item: "anxiety-tense",
@@ -1757,7 +1757,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Sometimes" },
         { value: 3, text: "Often" },
       ],
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (
           ans?.value === 1 &&
           state.getItemById("anxiety").answer?.value === 1
@@ -1793,7 +1793,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "I sometimes felt generally anxious, nervous or tense",
         },
       ],
-      process_answer_fun: (ans, state) => state.counters.increment("phobia", 1),
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => state.counters.increment("phobia", 1),
       next_item_fun: (ans) => {
         if (ans?.value === 1) return "phobia_type";
         return "anxiety-intro";
@@ -1814,10 +1814,10 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("anxiety", 1);
       },
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 1) {
           if (state.counters.get("phobia", 0) === 1) return "phobia_type";
           return "compulsions";
@@ -1835,7 +1835,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 3, text: "Unpleasant" },
         { value: 4, text: "Very unpleasant" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         if (v >= 3) state.counters.increment("anxiety", 1);
@@ -1850,7 +1850,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("AN4", 1);
       },
       next_item: "anxiety-dizzy",
@@ -1863,7 +1863,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("AN4", 1);
       },
       next_item: "anxiety-nausea",
@@ -1876,7 +1876,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("AN4", 1);
       },
       next_item: "anxiety-sweating",
@@ -1889,7 +1889,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("AN4", 1);
       },
       next_item: "anxiety-breathless",
@@ -1902,7 +1902,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("AN4", 1);
       },
       next_item: "anxiety-dry-mouth",
@@ -1915,7 +1915,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("AN4", 1);
       },
       next_item: "anxiety-chest-pain",
@@ -1928,7 +1928,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("AN4", 1);
       },
       next_item: "anxiety-numb",
@@ -1941,7 +1941,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("AN4", 1);
         if (state.counters.get("AN4", 0))
           state.counters.increment("anxiety", 1);
@@ -1956,7 +1956,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes, more than 3 hours on at least one day" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("anxiety", 1);
       },
       next_item: "anxiety-duration",
@@ -1973,7 +1973,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 5, text: "Between 2 and 5 years" },
         { value: 6, text: "More than 5 years" },
       ],
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (state.counters.get("phobia", 0) === 1) return "phobia_type";
         const anx = state.counters.get("anxiety", 0);
         if (anx <= 1) return "compulsions";
@@ -1988,7 +1988,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 1) {
           const anx = state.counters.get("anxiety", 0);
           if (anx <= 1) return "compulsions";
@@ -2014,7 +2014,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "I am not frightened of anything on this list but I am frightened of something else",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const v = ans?.value;
         if (!v) return;
         let type = 0;
@@ -2035,7 +2035,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("phobia", 1);
       },
       next_item_fun: (ans) => {
@@ -2051,7 +2051,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("PHO2", 1);
       },
       next_item: "phobia-dizzy",
@@ -2064,7 +2064,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("PHO2", 1);
       },
       next_item: "phobia-nausea",
@@ -2077,7 +2077,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("PHO2", 1);
       },
       next_item: "phobia-sweating",
@@ -2090,7 +2090,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("PHO2", 1);
       },
       next_item: "phobia-breathless",
@@ -2103,7 +2103,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("PHO2", 1);
       },
       next_item: "phobia-dry-mouth",
@@ -2116,7 +2116,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("PHO2", 1);
       },
       next_item: "phobia-chest-pain",
@@ -2129,7 +2129,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("PHO2", 1);
       },
       next_item: "phobia-numb",
@@ -2142,7 +2142,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("PHO2", 1);
         if (state.counters.get("PHO2", 0))
           state.counters.increment("phobia", 1);
@@ -2157,7 +2157,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes, on one or more occasion" },
       ],
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 1) {
           const anx = state.counters.get("anxiety", 0);
           const pho = state.counters.get("phobia", 0);
@@ -2176,11 +2176,11 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three times" },
         { value: 3, text: "Four times or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("phobia", 1);
         if (ans?.value === 3) state.counters.increment("phobia", 2);
       },
-      next_item_fun: (ans, state) => {
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) => {
         const anx = state.counters.get("anxiety", 0);
         if (
           state.getItemById("phobia-frequency").answer?.value === 1 &&
@@ -2226,7 +2226,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Once" },
         { value: 3, text: "More than once" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic", 1);
         if (ans?.value === 3) state.counters.increment("panic", 2);
       },
@@ -2244,7 +2244,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Unpleasant" },
         { value: 3, text: "Unbearable, or very unpleasant" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("panic", 1);
       },
       next_item: "panic-long",
@@ -2257,7 +2257,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "Less than 10 minutes" },
         { value: 2, text: "10 minutes or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic", 1);
       },
       next_item: "panic-sudden",
@@ -2280,7 +2280,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-sweat",
@@ -2293,7 +2293,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-shake",
@@ -2306,7 +2306,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-breathless",
@@ -2319,7 +2319,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-choke",
@@ -2332,7 +2332,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-chest-pain",
@@ -2345,7 +2345,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-nausea",
@@ -2358,7 +2358,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-dizzy",
@@ -2371,7 +2371,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-derealization",
@@ -2384,7 +2384,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-crazy",
@@ -2397,7 +2397,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-dying",
@@ -2410,7 +2410,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-tingling",
@@ -2423,7 +2423,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item: "panic-chills",
@@ -2436,7 +2436,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No" },
         { value: 2, text: "Yes" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("panic-symptoms", 1);
       },
       next_item_fun: (ans) =>
@@ -2480,7 +2480,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Sometimes" },
         { value: 3, text: "Often" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         state.counters.increment("score", state.counters.get("anxiety", 0));
         state.counters.increment("score", state.counters.get("phobia", 0));
         state.counters.increment("score", state.counters.get("panic", 0));
@@ -2497,7 +2497,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("compulsions", 1);
       },
       next_item_fun: (ans) =>
@@ -2511,7 +2511,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "No, not in the past week" },
         { value: 2, text: "Yes, on at least one occasion" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("compulsions", 1);
       },
       next_item: "compulsions-valence",
@@ -2524,7 +2524,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "Not at all" },
         { value: 2, text: "Yes, it has upset or annoyed me" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("compulsions", 1);
       },
       next_item: "compulsions-repeats",
@@ -2538,7 +2538,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Two repeats" },
         { value: 3, text: "Three or more repeats" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("compulsions", 1);
       },
       next_item: "compulsions-duration",
@@ -2566,10 +2566,10 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Sometimes" },
         { value: 3, text: "Often" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         state.counters.increment("score", state.counters.get("compulsions", 0));
       },
-      next_item_fun: (ans, state) =>
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) =>
         ans?.value === 1
           ? _overall_navigation(ans, state)
           : "obsessions-repeat",
@@ -2582,7 +2582,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "The same thoughts or ideas over and over again" },
         { value: 2, text: "Worrying about something in general" },
       ],
-      next_item_fun: (ans, state) =>
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) =>
         ans?.value === 2
           ? _overall_navigation(ans, state)
           : "obsessions-frequency",
@@ -2596,10 +2596,10 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 2, text: "Between one and three days" },
         { value: 3, text: "Four days or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 3) state.counters.increment("obsessions", 1);
       },
-      next_item_fun: (ans, state) =>
+      next_item_fun: (ans: Answer | undefined, state: Questionnaire) =>
         ans?.value === 2
           ? _overall_navigation(ans, state)
           : "obsessions-control",
@@ -2615,7 +2615,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, I have tried to stop these thoughts at least once",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("obsessions", 1);
       },
       next_item: "obsessions-valence",
@@ -2631,7 +2631,7 @@ export const _state_properties: QuestionnaireProperties = {
           text: "Yes, they have upset or annoyed me in the past week",
         },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("obsessions", 1);
       },
       next_item: "obsessions-long",
@@ -2644,7 +2644,7 @@ export const _state_properties: QuestionnaireProperties = {
         { value: 1, text: "Less than fifteen minutes" },
         { value: 2, text: "Fifteen minutes or more" },
       ],
-      process_answer_fun: (ans, state) => {
+      process_answer_fun: (ans: Answer | undefined, state: Questionnaire) => {
         if (ans?.value === 2) state.counters.increment("obsessions", 1);
         state.counters.increment("score", state.counters.get("obsessions", 0));
       },

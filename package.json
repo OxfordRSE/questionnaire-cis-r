@@ -1,6 +1,6 @@
 {
   "name": "questionnaire-cis-r",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Clinical Interview Schedule (Revised) package for qvue",
   "main": "index.js",
   "scripts": {
