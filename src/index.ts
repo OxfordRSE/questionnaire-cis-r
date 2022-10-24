@@ -3003,6 +3003,4 @@ export const _state_properties: QuestionnaireProperties = {
   },
 };
 
-export const cis = new Questionnaire(_state_properties);
-export const CIS: () => Questionnaire = () =>
-  new Questionnaire(_state_properties);
+export const questionnaire: () => Questionnaire = () =>  new Questionnaire(_state_properties);

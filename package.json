@@ -1,12 +1,11 @@
 {
   "name": "questionnaire-cis-r",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Clinical Interview Schedule (Revised) package for qvue",
   "main": "index.js",
   "scripts": {
-    "build": "run-s type-check test:unit build-only minify-built",
+    "build": "run-s type-check test:unit build-only",
     "build-only": "tsc",
-    "minify-built": "minify dist/index.js > dist/cis-r.min.js",
     "test:unit": "vitest --allowOnly --run",
     "type-check": "tsc --noEmit -p tsconfig.json --composite false"
   },
@@ -30,7 +29,6 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "minify": "^9.1.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^4.8.4",
     "vitest": "^0.24.3"
